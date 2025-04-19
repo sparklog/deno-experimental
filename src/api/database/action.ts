@@ -1,7 +1,5 @@
-// import { openKv } from "@deno/kv";
-import type { KvUser } from "../../lib/types";
 import { action } from "@solidjs/router";
-import { openKvDev } from "../../lib/kv";
+// import { openKvDev } from "../../lib/kv";
 
 /**
  * 向 KV 数据库添加/更新用户信息（email 和 password）
@@ -13,7 +11,7 @@ export const setKvUser = action(async function (
 ): Promise<boolean> {
   "use server";
   try {
-    const kv = await openKvDev();
+    const kv = await Deno.openKv();
     await kv.set(["email"], formData.get("email"));
     await kv.set(["password"], formData.get("password"));
     return true;
